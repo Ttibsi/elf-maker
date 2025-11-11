@@ -1,3 +1,4 @@
+import std.stdio;
 import utils;
 
 byte[16] e_ident() {
@@ -39,6 +40,7 @@ byte[] elf_header() {
 }
 
 void main() {
+    writeln("Building ELF file `t`...");
     byte[] elf_file = [];
 
     elf_file ~= elf_header();
