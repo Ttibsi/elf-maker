@@ -27,5 +27,6 @@ int compile(string[] files, string exec_name) {
 
 int main() {
     string[] files = listdir();
-    return compile(files, "t");
+    compile(files, "elf_maker");
+    return 0;
 }
