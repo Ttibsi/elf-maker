@@ -36,6 +36,12 @@ byte[16] e_ident() {
 // use 3 (for SO) for an executable that uses PIE
 byte[] e_type() pure { return [2, 0]; }
 
+// Wikipedia: This is the memory address of the entry point from where the 
+// process starts executing. If the file doesn't have an associated entry 
+// point, then this holds zero.
+// NOTE: This is the same as the p_vaddr field in the program header
+ubyte[8] e_entry() { return [0x54, 0x80, 0x4, 0x8, 0x0, 0x0, 0x0, 0x0]; }
+
 byte[] elf_header() {
     byte[] header = [];
     header ~= e_ident();
@@ -48,6 +54,38 @@ byte[] elf_header() {
 
     // Version -- always 1
     header ~= [1,0,0,0];
+
+    // Entry point
+    header ~= e_entry();
+
+    // program header - hardcoding here as it's usually the next part of the binary
+    // which is where I'm going to put it
+    header ~= [0x40,0,0,0,0,0,0,0];
+
+    // start of the section header table
+    // We don't have any sections as this is an executable, only segments
+    header ~= [0,0,0,0,0,0,0,0];
+
+    // flags - just set to 0
+    header ~= [0,0,0,0];
+
+    // e_ehsize - elf header size
+    header ~= [0x40, 0];
+
+    // Program header size
+    header ~= [0x38, 0];
+
+    // program header count -- we _should_ only need 1?
+    header ~= [0x1, 0];
+
+    // Section header size - even with 0 sections, this still needs to be defined
+    header ~= [0x40, 0];
+
+    // section header count
+    header ~= [0, 0];
+
+    // Contains index of the section header table entry that contains the section names.
+    header ~= [0, 0];
 
     return header;
 }
