@@ -16,3 +16,5 @@ ushort getCurrArch() {
 void writeToFile(byte[] bytes) {
     toFile(bytes, "t");
 }
+
+ubyte[8] padding() { return [0, 0, 0, 0, 0, 0, 0, 0]; } 
