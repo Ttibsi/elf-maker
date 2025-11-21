@@ -3,6 +3,7 @@ import std.stdio;
 import elf_header;
 import prog_header_data;
 import prog_header_text;
+import text;
 import utils;
 
 void main() {
@@ -21,6 +22,14 @@ void main() {
     // We need to pad out our file by 2x8 bytes to get to the right address
     elf_file ~= padding();
     elf_file ~= padding();
-    
+
+    elf_file ~= gen_text_segment();
+    writeln("Text segment: ", gen_text_segment().length, " bytes");
+
+    elf_file ~= gen_data_segment();
+    writeln("Data segment: ", gen_data_segment().length, " bytes");
+
+    elf_file ~= cast(ubyte[])[0,0,0]; // padding out to make a full square
+
     writeToFile(elf_file);
 }

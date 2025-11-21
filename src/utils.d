@@ -1,3 +1,4 @@
+import std.file;
 import std.system;
 import std.stdio;
 import std.conv;
@@ -15,6 +16,10 @@ ushort getCurrArch() {
 
 void writeToFile(byte[] bytes) {
     toFile(bytes, "t");
+
+    // Make `t` executable
+    auto file = "./t";
+    file.setAttributes(octal!777);
 }
 
 ubyte[8] padding() { return [0, 0, 0, 0, 0, 0, 0, 0]; } 

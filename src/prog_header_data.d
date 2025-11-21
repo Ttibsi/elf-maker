@@ -23,3 +23,7 @@ byte[] gen_prog_header_data() {
 
     return header;
 }
+
+ubyte[] gen_data_segment() {
+    return cast(ubyte[])"hello world!\n";
+}
