@@ -20,8 +20,8 @@ void main() {
     writeln("Program header (data): ", gen_prog_header_data().length, " bytes");
 
     // We need to pad out our file by 2x8 bytes to get to the right address
-    elf_file ~= padding();
-    elf_file ~= padding();
+    /* elf_file ~= padding(); */
+    /* elf_file ~= padding(); */
 
     elf_file ~= gen_text_segment();
     writeln("Text segment: ", gen_text_segment().length, " bytes");
