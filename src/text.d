@@ -10,8 +10,8 @@ byte[] write_syscall() {
     // Set the file descriptor to 1 (STDOUT)
     bytes ~= reverse(cast(ubyte[])[0xd2, 0x80, 0, 0x20]);
 
-    // adr x1, #7
-    bytes ~= reverse(cast(ubyte[])[0x70, 0, 0, 0x21]);
+    // adr x1, #28
+    bytes ~= reverse(cast(ubyte[])[0x10, 0, 0, 0xe1]);
 
     // mov     x2, #0xd
     // Count of chars to print
